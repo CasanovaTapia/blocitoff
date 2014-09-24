@@ -27,3 +27,5 @@ gem 'jbuilder', '~> 2.0'
 group :doc do
   gem 'sdoc', require: false
 end
+
+gem 'devise'
