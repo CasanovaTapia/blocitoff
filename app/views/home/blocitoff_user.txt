@@ -1,0 +1,112 @@
+USER RESOURCE
+
+* Add Devise
+gem 'devise'
+$ bundle
+$ rails g devise:install
+  * Recommended Devise configurations
+  Add these lines to config/environments/development.rb
+   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+   config.action_mailer.delivery_method = :smtp
+   config.action_mailer.perform_deliveries = true
+end
+
+  $ rails g devise:views
+
+* Add User Model
+$ rails g devise User
+
+* Modify migration file to add this line
+t.string :name
+
+And uncomment these lines
+t.string   :confirmation_token
+t.datetime :confirmed_at
+t.datetime :confirmation_sent_at
+t.string   :unconfirmed_email # Only if using reconfirmable
+
+rake db:migrate
+
+* Modify user.rb
+Add :confirmable
+
+GOOD STOPPING POINT
+
+* Install Sendgrid
+$ heroku addons:add sendgrid:starter
+$ heroku addons # To verify Sendgrid was installed
+$ heroku config:get SENDGRID_USERNAME  # To get username
+$ heroku config:get SENDGRID_PASSWORD  # To get password
+
+Create config/initializers/setup_mail.rb
+if Rails.env.development?
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    address:        'smtp.sendgrid.net',
+    port:           '587',
+    authentication: :plain,
+    user_name:      ENV['SENDGRID_USERNAME'],
+    password:       ENV['SENDGRID_PASSWORD'],
+    domain:         'heroku.com',
+    enable_starttls_auto: true
+  }
+end
+
+* Install Figaro
+gem 'figaro'
+$ bundle
+$ rails g figaro:install
+
+Add these lines to config/application.yml
+SENDGRID_PASSWORD: exAmplePa$$
+SENDGRID_USERNAME: myspecialusername
+
+.gitignore
+/config/applicaiton.yml
+
+Create config/application.example.yml
+
+Extract Devise secret key from config/initializers/devise.rb
+Add this to application.yml and application.example.yml
+DEVISE_SECRET_KEY:
+
+Edit README to initialize config/application.yml
+
+Push to git
+
+Update production environment
+$ rake figaro:heroku
+or we might have to set variables one at a time:
+$ heroku config:set DEVISE_SECRET_KEY=sekrit123456
+
+.gitignore
+config/initializers/secret_token.rb
+$ git rm --cached
+$ rake secret  # Get new secret token, replace token in secret_token.rb
+
+* Edit layouts/application.html.erb
+  <div class="pull-right user-info">
+    <% if current_user %>
+      Hello <%= current_user.email %>! <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Sign In", new_user_session_path %> or 
+      <%= link_to "Sign Up", new_user_registration_path %>
+    <% end %>
+  </div>
+
+* Edit User views
+
+* Edit application_controller.rb
+class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+  
+  before_action :configure_permitted_parameters, if: :devise_controller?
+ 
+  protected
+ 
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) << :name
+  end
+end
+
+
