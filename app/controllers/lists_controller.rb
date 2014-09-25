@@ -16,7 +16,7 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = List.new(list_params)
+    @list = current_user.lists.new(list_params)
 
     if @list.save
       flash[:notice] = "List was saved."
