@@ -1,23 +1,27 @@
 class ListsController < ApplicationController
   def index
-    @lists = List.all
+    @lists = current_user.lists if current_user.present?
   end
 
   def show
     @list = List.find(params[:id])
+    authorize @list
   end
 
   def new
     @list = List.new
+    authorize @list
   end
 
   def edit
     @list = List.find(params[:id])
+    authorize @list
   end
 
   def create
     @list = current_user.lists.new(list_params)
 
+    authorize @list
     if @list.save
       flash[:notice] = "List was saved."
       redirect_to @list
@@ -30,6 +34,7 @@ class ListsController < ApplicationController
   def update
     @list = List.find(params[:id])
 
+    authorize @list
     if @list.update_attributes(list_params)
       flash[:notice] = "List was updated."
       redirect_to @list
@@ -42,6 +47,7 @@ class ListsController < ApplicationController
   def destroy
     @list = List.find(params[:id])
 
+    authorize @list
     if @list.destroy
       flash[:notice] = "List was deleted."
       redirect_to lists_path

@@ -1,22 +1,26 @@
-<h1>My Lists</h2>
+<% if current_user.present? %>
+  <h1>My Lists</h2>
 
-<div class="row">
-  <div class="col-md-4 col-md-offset-2">
-    <% @lists.each do |list| %>
-      <div class="media">
-        <div class="media-body">
-          <h4 class="media-heading">
-            <%= link_to list.title, list %>
-          </h4>
-          <p><%= list.description %></p>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-2">
+      <% @lists.each do |list| %>
+        <div class="media">
+          <div class="media-body">
+            <h4 class="media-heading">
+              <%= link_to list.title, list %>
+            </h4>
+            <p><%= list.description %></p>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
 
-  <div class="col-md-4 col-md-offset-2">
-    <%= link_to "New List", new_list_path, class: 'btn btn-success' %>
-  </div>
+    <div class="col-md-4 col-md-offset-2">
+      <%= link_to "New List", new_list_path, class: 'btn btn-success' %>
+    </div>
 
-</div>
+  </div>
+<% else %>
+  <% flash[:error] = "Please log in or sign up." %>
+<% end %>
 
