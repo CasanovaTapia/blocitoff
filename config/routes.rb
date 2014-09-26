@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :lists
-
   devise_for :users
   
+  resources :lists
+
   get 'home/index'
 
   root to: 'home#index'
