@@ -1,11 +1,32 @@
 @import "bootstrap";
 
-.nav {
-  margin: 5px;
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.user-info {
-  margin: 9px;
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+
+.nav {
+  margin: 5px;
+  border: none;
+  font-size: 20px;
+  a {
+    margin: 10px;
+  }
+}
+
+.nav-left {
+  font-size: 18px;
+}
+
+.nav-right {
+  font-weight: bold;
+  font-size: 16px;
 }
 
 a {
@@ -20,7 +41,35 @@ h1 {
   text-align: center;
 }
 
+.header {
+  margin-bottom: 50px;
+}
+
 .list-description {
   text-align: center;
 }
+
+.jumbotron {
+  background-color: #f39c12;
+  color: #fff;
+  text-align: center;
+  p {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+.btn {
+  border: none;
+  font-weight: bold;
+}
+
+.btn-success {
+  background-color: #1abc9c;
+}
+
+.btn-default {
+  color: #1abc9c;
+}
+
 

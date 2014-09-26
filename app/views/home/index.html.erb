@@ -1,6 +1,13 @@
+<div class="span7 text-center">
 <div class="jumbotron">
-  <h1>Blocitoff</h1>
+  <h1>BLOCITOFF</h1>
   <h4>a self-destructing to-do list</h4>
   <p>Complete your tasks in 7 days or they will automatically be deleted!</p>
-  <p>The idea is that if your task is not important enough to be completed in 7 days, it doesn't belong on your list</p>
+  <% unless current_user.present? %>
+    <div class="span7 text-center">
+      <%= link_to "Log In", new_user_session_path, class: 'btn btn-default btn-lg' %>
+      <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-success btn-lg' %>
+    </div>
+  <% end %>
+</div>
 </div>
