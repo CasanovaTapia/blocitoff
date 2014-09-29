@@ -1,13 +1,4 @@
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th>Task</th>
-      <th>Days Left</th>
-      <th>Mark Complete</th>
-    </tr>
-  </thead>
   <tbody>
-    <% @items.each do |item| %>
       <% unless item.body.nil? %>
         <tr>
           <td><%= item.body %></td>
@@ -15,7 +6,6 @@
           <td><%= link_to "Complete", [item.list, item], method: :delete %></td>
         </tr>
       <% end %>
-    <% end %>
   </tbody>
-</table>
+
 
