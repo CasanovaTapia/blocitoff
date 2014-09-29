@@ -2,16 +2,19 @@
 <p class="list-description"><%= @list.description %></p>
 
 <div class="row">
-  <div class="col-md-4 col-md-offset-2">
+  <div class="col-md-8 col-md-offset-2">
     <div class="media">
+      <div class="list-buttons">
+        <%= link_to "Edit List", edit_list_path(@list), class: 'btn btn-success' %>
+        <%= link_to "Delete List", @list, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this list?' } %>
+      </div>
       <div class="media-body">
+        <%= render 'items/form' %>
         
+        <%= render partial: 'items/item', collection: @items %>
       </div>
     </div>
   </div>
 
-  <div class="col-md-4 col-md-offset-2">
-    <%= link_to "Edit List", edit_list_path(@list), class: 'btn btn-success' %>
-    <%= link_to "Delete List", @list, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this list?' } %>
-  </div>
+
 </div>

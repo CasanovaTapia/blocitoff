@@ -7,7 +7,6 @@ class ListPolicy < ApplicationPolicy
     user.present? && record.user == user
   end
 
-
   class Scope < Scope
     def resolve
       scope
