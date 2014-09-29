@@ -10,8 +10,18 @@
       </div>
       <div class="media-body">
         <%= render 'items/form' %>
-        
-        <%= render partial: 'items/item', collection: @items %>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Days Left</th>
+              <th>Mark Complete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: 'items/item', collection: @items %>
+          <tbody>
+        </table>
       </div>
     </div>
   </div>
