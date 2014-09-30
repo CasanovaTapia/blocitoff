@@ -2,7 +2,7 @@
   <tr>
     <td><%= item.body %></td>
     <td><%= (7 - ((time_ago_in_words(item.created_at)).to_i)) %></td>
-    <td><%= link_to "Complete", [item.list, item], method: :delete %></td>
+    <td><%= link_to "Complete", [item.list, item], method: :delete, remote: true %></td>
   </tr>
 <% end %>
 

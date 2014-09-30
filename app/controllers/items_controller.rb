@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  respond_to :html, :js
+
   def create
     @list = List.find(params[:list_id])
     @item = @list.items.new(item_params)
@@ -21,10 +23,12 @@ class ItemsController < ApplicationController
     authorize @item
     if @item.destroy
       flash[:notice] = "Successfully completed!"
-      redirect_to @list
     else
       flash[:error] = "There was an error. Please try again."
-      redirect_to @list
+    end
+
+    respond_with(@item) do |format|
+      format.html { redirect_to @list }
     end
   end
   
