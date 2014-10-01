@@ -1,11 +1,12 @@
-<% unless item.body.nil? %>
-  <tr>
-    <td><%= item.body %></td>
-    <td><%= (7 - ((time_ago_in_words(item.created_at)).to_i)) %></td>
-    <td><%= link_to "Complete", [item.list, item], method: :delete, remote: true %></td>
-  </tr>
+<%= content_tag :div, id: "item-#{item.id}" do %>
+  <% unless item.body.nil? %>
+    <tr>
+      <td><%= item.body %></td>
+      <td><%= distance_of_time_in_words_to_now(item.created_at + 7.days) %></td>
+      <td><%= link_to "Complete", [item.list, item], method: :delete, remote: true %></td>
+    </tr>
+  <% end %>
 <% end %>
-
 
 
 

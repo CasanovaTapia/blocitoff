@@ -1,1 +1,3 @@
-$('#item-' +<%= @item.id %>).fadeOut();
+<% if @item.destroyed? %>
+  $('#item-'+<%=@item.id%>).hide();
+<% end %>
